@@ -1,3 +1,5 @@
+import { IMovieAPI, IMovieList } from './../models/IMovieAPI.models';
+import { MovieService } from './../services/movie.service';
 import { DataService } from './../services/data.service';
 import { IMovie } from '../models/IMovie.models';
 import { Component } from '@angular/core';
@@ -32,11 +34,24 @@ export class Tab1Page {
     }
   ];
 
+  movieList: IMovieList;
+
   constructor(public alertController: AlertController, public toastController: ToastController,
-    public dataService: DataService, public route: Router) {}
+    public dataService: DataService, public route: Router, public movieService: MovieService) {}
+
+    searchMovies(event: any){
+      console.log(event.target.value);
+      const search = event.target.value;
+      if(search && search.trim() !== ''){
+        this.movieService.searchMovie(search).subscribe(data => {
+          console.log(data);
+          this.movieList = data;
+        });
+      }
+    }
 
 
-    showMovie(movie: IMovie){
+    showMovie(movie: IMovieAPI){
       this.dataService.storeData('movie', movie);
       this.route.navigateByUrl('/data-movie')
     }

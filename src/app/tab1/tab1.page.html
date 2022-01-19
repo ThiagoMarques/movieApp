@@ -7,24 +7,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar placeholder="search movie"></ion-searchbar>
+  <ion-searchbar (ionChange)="searchMovies($event)" placeholder="search movie"></ion-searchbar>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let movie of listMovie">
+  <ion-list *ngIf="movieList">
+    <ion-item lines="none" *ngIf="movieList.results.length === 0">
+      <ion-label class="ion-text-center">
+        Not found
+      </ion-label>
+    </ion-item>
+    <ion-item-sliding *ngFor="let movie of movieList.results">
       <ion-item lines="full" (click)="showMovie(movie)">
         <ion-thumbnail slot="start">
-          <img [src]="movie.image" alt="Flash movie" srcset="">
+          <img *ngIf="movie.poster_path" src="https://www.themoviedb.org/t/p/w500/{{movie.poster_path}}" alt="Flash movie" srcset="">
+          <ion-icon *ngIf="!movie.poster_path" name="videocam-off"></ion-icon>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
           <div>
-            <h1>{{ movie.name }}</h1>
-            <p>{{ movie.duration}}</p>
-            <ion-badge color="light" *ngFor="let genre of movie.genre">{{ genre }}</ion-badge>
+            <h1>{{ movie.title }}</h1>
+            <p>{{ movie.release_date}}</p>
+            <ion-badge color="light" *ngFor="let genre of movie.genre_ids">{{ genre }}</ion-badge>
           </div>
         </ion-label>
-        <ion-chip color="success" outline>
+        <ion-chip [color]="movie.vote_average < 5 ? 'danger' : ((movie.vote_average < 7) ? 'warning' : 'success')" outline>
           <ion-label>
-            {{movie.classification}}%
+            {{movie.vote_average}}
           </ion-label>
         </ion-chip>
       </ion-item>
