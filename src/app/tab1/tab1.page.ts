@@ -102,6 +102,7 @@ export class Tab1Page implements OnInit{
       data.genres.forEach(genre => {
         this.genresString[genre.id] = genre.name;
       });
+      this.dataService.storeData('genres', this.genresString);
     });
   }
 }

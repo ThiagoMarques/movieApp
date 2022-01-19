@@ -12,15 +12,17 @@
 <ion-content color="light">
   <ion-card *ngIf="movie">
     <ion-card-header>
-      <img [src]="movie.image" alt="" srcset="">
+      <img *ngIf="movie.poster_path" src="https://www.themoviedb.org/t/p/w500/{{movie.poster_path}}" alt="Flash movie" srcset="">
+          <ion-icon *ngIf="!movie.poster_path" name="videocam-off"></ion-icon>
     </ion-card-header>
 
     <ion-card-content>
-      <h1>{{movie.name}} - <ion-chip color="success">{{movie.classification}}%</ion-chip></h1>
-      <p>{{movie.duration}}</p>
+      <h1>{{movie.title}} - <ion-chip color="success">{{movie.vote_average}}%</ion-chip></h1>
+      <p>{{movie.release_date | date:'shortDate'}}</p>
+
     </ion-card-content>
-    <ion-badge color="light" *ngFor="let genre of movie.genre">
-      {{genre}}
+    <ion-badge color="light" *ngFor="let idGenre of movie.genre_ids">
+      {{genres[idGenre]}}
     </ion-badge>
   </ion-card>
 </ion-content>
