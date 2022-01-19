@@ -1,19 +1,21 @@
+import { GenreService } from './../services/genre.service';
 import { IMovieAPI, IMovieList } from './../models/IMovieAPI.models';
 import { MovieService } from './../services/movie.service';
 import { DataService } from './../services/data.service';
 import { IMovie } from '../models/IMovie.models';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { IGenre } from '../models/iGenrer';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit{
 
-  title: string = 'MovieApp';
+  title = 'MovieApp';
 
   listMovie: IMovie[] = [
     {
@@ -35,9 +37,13 @@ export class Tab1Page {
   ];
 
   movieList: IMovieList;
+  genresString: string[] = [];
 
   constructor(public alertController: AlertController, public toastController: ToastController,
-    public dataService: DataService, public route: Router, public movieService: MovieService) {}
+    public dataService: DataService, public route: Router, public movieService: MovieService,
+    public genreService: GenreService) {}
+
+
 
     searchMovies(event: any){
       console.log(event.target.value);
@@ -53,7 +59,7 @@ export class Tab1Page {
 
     showMovie(movie: IMovieAPI){
       this.dataService.storeData('movie', movie);
-      this.route.navigateByUrl('/data-movie')
+      this.route.navigateByUrl('/data-movie');
     }
 
   async showAlert() {
@@ -88,5 +94,14 @@ export class Tab1Page {
       color: 'success'
     });
     toast.present();
+  }
+
+  ngOnInit() {
+    this.genreService.getGenders().subscribe(data => {
+      console.log(data.genres);
+      data.genres.forEach(genre => {
+        this.genresString[genre.id] = genre.name;
+      });
+    });
   }
 }

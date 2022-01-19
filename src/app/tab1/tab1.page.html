@@ -24,8 +24,8 @@
         <ion-label class="ion-text-wrap">
           <div>
             <h1>{{ movie.title }}</h1>
-            <p>{{ movie.release_date}}</p>
-            <ion-badge color="light" *ngFor="let genre of movie.genre_ids">{{ genre }}</ion-badge>
+            <p>{{ movie.release_date | date: 'shortDate'}}</p>
+            <ion-badge color="light" *ngFor="let idGenre of movie.genre_ids">{{ genresString[idGenre] }}</ion-badge>
           </div>
         </ion-label>
         <ion-chip [color]="movie.vote_average < 5 ? 'danger' : ((movie.vote_average < 7) ? 'warning' : 'success')" outline>
