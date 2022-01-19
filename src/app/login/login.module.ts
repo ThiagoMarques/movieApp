@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GameOfThronesPageRoutingModule } from './game-of-thrones-routing.module';
+import { LoginPageRoutingModule } from './login-routing.module';
 
-import { GameOfThronesPage } from './game-of-thrones.page';
+import { LoginPage } from './login.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GameOfThronesPageRoutingModule
+    LoginPageRoutingModule
   ],
-  declarations: [GameOfThronesPage]
+  declarations: [LoginPage]
 })
-export class GameOfThronesPageModule {}
+export class LoginPageModule {}

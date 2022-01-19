@@ -1,0 +1,22 @@
+ion-content{
+  display: inline-flex;
+  height: 100vh;
+  overflow: hidden;
+  --background: #000;
+
+  img {
+    display: flex;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+}
+.center{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+
