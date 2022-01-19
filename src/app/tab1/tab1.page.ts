@@ -1,5 +1,8 @@
+import { DataService } from './../services/data.service';
+import { IMovie } from '../models/IMovie.models';
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -8,7 +11,35 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  constructor(public alertController: AlertController, public toastController: ToastController) {}
+  title: string = 'MovieApp';
+
+  listMovie: IMovie[] = [
+    {
+      name: 'The Flash (2014)',
+      genre: ['Drama', 'Sci-Fi', 'Fantasy'],
+      duration: '44m',
+      classification: 78,
+      image: 'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg',
+      page: '/flash'
+    },
+    {
+      name: 'Game of Thrones (2011)',
+      genre: ['Drama', 'Sci-Fi', 'Fantasy', 'Animation'],
+      duration: '1h',
+      classification: 85,
+      image: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3pLLMbM33SBGrade4TuahCP1sdJ.jpg',
+      page: '/game-of-thrones'
+    }
+  ];
+
+  constructor(public alertController: AlertController, public toastController: ToastController,
+    public dataService: DataService, public route: Router) {}
+
+
+    showMovie(movie: IMovie){
+      this.dataService.storeData('movie', movie);
+      this.route.navigateByUrl('/data-movie')
+    }
 
   async showAlert() {
     const alert = await this.alertController.create({

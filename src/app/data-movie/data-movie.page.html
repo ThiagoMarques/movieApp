@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button>
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Data Movie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card *ngIf="movie">
+    <ion-card-header>
+      <img [src]="movie.image" alt="" srcset="">
+    </ion-card-header>
+
+    <ion-card-content>
+      <h1>{{movie.name}} - <ion-chip color="success">{{movie.classification}}%</ion-chip></h1>
+      <p>{{movie.duration}}</p>
+    </ion-card-content>
+    <ion-badge color="light" *ngFor="let genre of movie.genre">
+      {{genre}}
+    </ion-badge>
+  </ion-card>
+</ion-content>

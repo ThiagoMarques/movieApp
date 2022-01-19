@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Videos App
+      {{ title }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,55 +10,30 @@
   <ion-searchbar placeholder="search movie"></ion-searchbar>
 
   <ion-list>
-    <ion-item-sliding>
-      <ion-item lines="full">
+    <ion-item-sliding *ngFor="let movie of listMovie">
+      <ion-item lines="full" (click)="showMovie(movie)">
         <ion-thumbnail slot="start">
-          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg" alt="Flash movie" srcset="">
+          <img [src]="movie.image" alt="Flash movie" srcset="">
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
           <div>
-            <h1>The Flash (2014)</h1>
-            <p>Drama, Sci-Fi & Fantasy</p>
-            <p>44m</p>
+            <h1>{{ movie.name }}</h1>
+            <p>{{ movie.duration}}</p>
+            <ion-badge color="light" *ngFor="let genre of movie.genre">{{ genre }}</ion-badge>
           </div>
         </ion-label>
         <ion-chip color="success" outline>
           <ion-label>
-            78%
+            {{movie.classification}}%
           </ion-label>
         </ion-chip>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="showAlert()">
+        <ion-item-option color="orange" (click)="showAlert()">
           <ion-icon slot="icon-only" name="star"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item lines="full">
-        <ion-thumbnail slot="start">
-          <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3pLLMbM33SBGrade4TuahCP1sdJ.jpg" alt="Game of thrones" srcset="">
-        </ion-thumbnail>
-        <ion-label class="ion-text-wrap">
-          <div>
-            <h1>Game of Thrones (2011)</h1>
-            <p>Sci-Fi & Fantasy, Drama, Action & Adventure</p>
-            <p>1h</p>
-          </div>
-        </ion-label>
-        <ion-chip color="success" outline>
-          <ion-label>
-            85%
-          </ion-label>
-        </ion-chip>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option (click)="showAlert()">
-          <ion-icon slot="icon-only" name="star"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
   </ion-list>
 
 
